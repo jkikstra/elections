@@ -4,24 +4,29 @@ library(ggthemes)
 library(geomtextpath)
 
 data.elections <- read_csv(here("results_NL_tweedekamer.csv")) %>%
-  select(-where(is.logical)) %>% select(-c("exitpoll1","exitpoll2","ochtendprognose")) %>%
+  select(-where(is.logical)) %>% select(-c(
+    "2023.exitpoll1", "2023.exitpoll2",	"2023.ochtendprognose"
+    )) %>%
   pivot_longer(
-    cols = `1994`:`2023`,
+    cols = `1994`:`2025`,
     names_to = "Year",
     values_to = "Seats"
   ) %>% mutate(Year=as.numeric(Year))
 data.elections$`Political orientation` = factor(data.elections$`Political orientation`,
                               levels=c('progressive/left',
                                        'centre',
-                                       'centre/right',
+                                       'centre right',
+                                       'traditional right',
                                        'radical right'))
 
 election.years <- data.elections %>% pull(Year) %>% unique() %>% sort()
 
 orientation.colors <- c(
+  # labelling is informed 2025 kieskompas
   "progressive/left" = "red",
   "centre" = "#b2df8a",
-  "centre/right" = "#1f78b4",
+  "centre right" = "#1f78b4",
+  "traditional right" = "#1a44ad",
   "radical right" = "#4a412a"
 )
 
