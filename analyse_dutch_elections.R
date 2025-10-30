@@ -5,8 +5,10 @@ library(geomtextpath)
 
 data.elections <- read_csv(here("results_NL_tweedekamer.csv")) %>%
   select(-where(is.logical)) %>% select(-c(
-    "2023.exitpoll1", "2023.exitpoll2",	"2023.ochtendprognose"
+    "2023.exitpoll1", "2023.exitpoll2",	"2023.ochtendprognose",
+    "2025.exitpoll1", "2025.exitpoll2"#, "2025.ochtendprognose"
     )) %>%
+  rename(`2025`=`2025.ochtendprognose`) %>%
   pivot_longer(
     cols = `1994`:`2025`,
     names_to = "Year",
