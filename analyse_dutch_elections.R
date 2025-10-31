@@ -15,7 +15,8 @@ data.elections <- read_csv(here("results_NL_tweedekamer.csv")) %>%
     values_to = "Seats"
   ) %>% mutate(Year=as.numeric(Year))
 data.elections$`Political orientation` = factor(data.elections$`Political orientation`,
-                              levels=c('progressive/left',
+                              levels=c('left',
+                                       'progressive centre',
                                        'centre',
                                        'centre right',
                                        'traditional right',
@@ -25,7 +26,8 @@ election.years <- data.elections %>% pull(Year) %>% unique() %>% sort()
 
 orientation.colors <- c(
   # labelling is informed 2025 kieskompas
-  "progressive/left" = "red",
+  "left" = "red",
+  "progressive centre" = "#f285f0",
   "centre" = "#b2df8a",
   "centre right" = "#1f78b4",
   "traditional right" = "#1a44ad",
